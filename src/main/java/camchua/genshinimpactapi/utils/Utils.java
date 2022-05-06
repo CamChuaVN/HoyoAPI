@@ -39,10 +39,10 @@ public class Utils {
 	}
 	
 	public static String getServerByUid(String uid) {
-        char first = uid.charAt(0);
-        String server = null;
-        switch(first) {
-        case '1': 
+		char first = uid.charAt(0);
+		String server = null;
+		switch(first) {
+		case '1': 
         	server = "cn_gf01"; 
         	break;
 		case '2': 
@@ -63,43 +63,43 @@ public class Utils {
 		case '9': 
 			server = "os_cht"; 
 			break;
-        default:
-        	System.out.println("Wrong UID: " + uid);
-            throw new IllegalArgumentException("Wrong uid");
-        }
-        return server;
-    }
+		default:
+			System.out.println("Wrong UID: " + uid);
+			throw new IllegalArgumentException("Wrong uid");
+		}
+		return server;
+	}
 	
 	public static JSONObject getConnectionResult(String url, String method, String reqBody) {
 		try {
-            CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
-            HttpURLConnection connection = null;
+			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+			HttpURLConnection connection = null;
 			try {
 				connection = (HttpURLConnection) new URL(url + reqBody).openConnection();
 			} catch(Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-            connection.setRequestMethod(method.toUpperCase());
-            connection.setRequestProperty("User-Agent", "miHoYoBBS/2.5.1");
-            connection.setRequestProperty("x-rpc-language", "en-us");
-            connection.setRequestProperty("x-rpc-app_version", "2.2.1");
-            connection.setRequestProperty("x-rpc-client_type", "4");
-            connection.setRequestProperty("x-requested-with", "com.mihoyo.hyperion");
-            connection.setRequestProperty("referer", "https://webstatic.mihoyo.com/");
-            connection.setRequestProperty("origin", "https://webstatic.mihoyo.com");
-            connection.setRequestProperty("ds", Utils.generateDS());
-            connection.setRequestProperty("cookie", GenshinImpact.inst().getCookie());
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            final String response = reader.lines().collect(Collectors.joining());
-            return new JSONObject(response);
-        } catch(IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+			connection.setRequestMethod(method.toUpperCase());
+			connection.setRequestProperty("User-Agent", "miHoYoBBS/2.5.1");
+			connection.setRequestProperty("x-rpc-language", "en-us");
+			connection.setRequestProperty("x-rpc-app_version", "2.2.1");
+			connection.setRequestProperty("x-rpc-client_type", "4");
+			connection.setRequestProperty("x-requested-with", "com.mihoyo.hyperion");
+			connection.setRequestProperty("referer", "https://webstatic.mihoyo.com/");
+			connection.setRequestProperty("origin", "https://webstatic.mihoyo.com");
+			connection.setRequestProperty("ds", Utils.generateDS());
+			connection.setRequestProperty("cookie", GenshinImpact.inst().getCookie());
+			connection.setUseCaches(false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			final String response = reader.lines().collect(Collectors.joining());
+			return new JSONObject(response);
+		} catch(IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public static Player initPlayer(String uid, boolean cn) {

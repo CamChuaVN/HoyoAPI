@@ -47,7 +47,7 @@ public class GenshinImpactAPI {
 		}
 		
 		return "";
-    }
+	}
 	
 	public String getAbyssInfo(String uid, int scheduleType, boolean cn){
 		String server = Utils.getServerByUid(uid);
@@ -62,7 +62,7 @@ public class GenshinImpactAPI {
 		}
 		
 		return "";
-    }
+	}
 	
 	
 	
