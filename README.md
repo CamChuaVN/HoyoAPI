@@ -29,3 +29,6 @@ Player player = api.getPlayer("put your uid here", false);
 - Choose "Application" tab
 - Select "Cookies" then select Hoyolab domain
 - On the right page, copy ltuid and ltoken value
+
+## Note
+Traveler Diary, Daily Reward and Spiral Abyss can only access to you data, can not access to other user. If you trying to get other user data, it will return your data.
