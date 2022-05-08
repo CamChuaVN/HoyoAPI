@@ -12,18 +12,24 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.springframework.util.DigestUtils;
 
 import camchua.genshinimpactapi.GenshinImpact;
 import camchua.genshinimpactapi.data.user.model.Avatar;
 import camchua.genshinimpactapi.data.user.model.DailyReward;
 import camchua.genshinimpactapi.data.user.model.Player;
 import camchua.genshinimpactapi.data.user.model.Stat;
+import camchua.genshinimpactapi.data.user.model.dailynote.DailyNote;
+import camchua.genshinimpactapi.data.user.model.dailynote.DailyNoteExpeditions;
+import camchua.genshinimpactapi.data.user.model.dailynote.DailyNoteExpeditions.Expeditions;
+import camchua.genshinimpactapi.data.user.model.dailynote.DailyNoteTransformer;
 import camchua.genshinimpactapi.data.user.model.explorations.ExplorationsOfferings;
 import camchua.genshinimpactapi.data.user.model.explorations.WorldExplorations;
 import camchua.genshinimpactapi.data.user.model.explorations.WorldExplorations.Explorations;
@@ -53,9 +59,9 @@ public class Utils {
 	private static String OS_DS_SALT = "6cqshh5dhw73bzxn20oexa9k516chk7s";
 	private static String CN_DS_SALT = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
 
-	public static String generateDS(boolean cn) {
+	public static String generateDS() {
 		PythonInterpreter python = new PythonInterpreter();
-		python.set("salt", cn ? CN_DS_SALT : OS_DS_SALT);
+		python.set("salt", OS_DS_SALT);
 		python.set("r", "ABCDEF");
 		python.exec("import time, hashlib");
 		python.exec("t = int(time.time())");
@@ -65,6 +71,24 @@ public class Utils {
 		PyObject result = python.get("result");
 		python.close();
 		return result.asString();
+	}
+	
+	public static String generateDS_CN() {
+		String md5Version = "cx2y9z9a29tfqvr1qsq6c7yz99b5jsqt";
+		String t = Long.toString(System.currentTimeMillis() / 1000);
+		String r = random(6);
+		String c = DigestUtils.md5DigestAsHex(("salt=" + md5Version + "&t=" + t + "&r=" + r).getBytes());
+		return t + "," + r + "," + c;
+	}
+
+	public static String random(int len) {
+    	Random rd = new Random();
+        char[] x = "1234567890abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] str = new char[len];
+        for (int i = 0; i < len; i++) {
+        	str[i] = x[rd.nextInt(x.length)];
+        }
+        return new String(str);
 	}
 
 	public static String getServerByUid(String uid) {
@@ -120,7 +144,7 @@ public class Utils {
 			connection.setRequestProperty("sec-fetch-site", "same-site");
 			connection.setRequestProperty("sec-fetch-mode", "cors");
 			connection.setRequestProperty("sec-fetch-dest", "empty");
-			connection.setRequestProperty("ds", Utils.generateDS(cn));
+			connection.setRequestProperty("ds", cn ? Utils.generateDS_CN() : Utils.generateDS());
 			connection.setRequestProperty("cookie", GenshinImpact.inst().getCookie());
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
@@ -139,7 +163,7 @@ public class Utils {
 		JSONObject info = new JSONObject(info_str);
 		if (info.getInt("retcode") != 0) {
 			System.out.println("Init Player error: " + info.getString("message"));
-			return new Player("", new ArrayList<>(), null, null, null, null, null);
+			return new Player("", new ArrayList<>(), null, null, null, null, null, null);
 		}
 
 		String avt_str = GenshinImpact.getAPI().getCharacterInfo(uid, cn);
@@ -333,8 +357,46 @@ public class Utils {
 			String region = diary.getJSONObject("data").getString("region");
 			td = new TravelerDiary(dataMonth, region, dayData, monthData, monthDetail);
 		}
+		
+		DailyNote dn = null;
+		if (true) {
+			String note_str = GenshinImpact.getAPI().getDailyNoteInfo(uid, cn);
+			JSONObject note = new JSONObject(note_str);
+			
+			boolean to = note.getJSONObject("data").getJSONObject("transformer").getBoolean("obtained");
+			int trs = note.getJSONObject("data").getJSONObject("transformer").getJSONObject("recovery_time").getInt("Second");
+			int trm = note.getJSONObject("data").getJSONObject("transformer").getJSONObject("recovery_time").getInt("Minute");
+			int trh = note.getJSONObject("data").getJSONObject("transformer").getJSONObject("recovery_time").getInt("Hour");
+			int trd = note.getJSONObject("data").getJSONObject("transformer").getJSONObject("recovery_time").getInt("Day");
+			boolean trr = note.getJSONObject("data").getJSONObject("transformer").getJSONObject("recovery_time").getBoolean("reached");
+			DailyNoteTransformer t = new DailyNoteTransformer(to, trs, trm, trh, trd, trr);
+			
+			JSONArray expeditions = note.getJSONObject("data").getJSONArray("expeditions");
+			List<Expeditions> expedition = new ArrayList<>();
+			for(int i = 0; i < expeditions.length(); i++) {
+				String rt = expeditions.getJSONObject(i).getString("remained_time");
+				String s = expeditions.getJSONObject(i).getString("status");
+				expedition.add(new Expeditions(rt, s));
+			}
+			DailyNoteExpeditions e = new DailyNoteExpeditions(expedition);
+			
+			int men = note.getJSONObject("data").getInt("max_expedition_num");
+			int rdnl = note.getJSONObject("data").getInt("resin_discount_num_limit");
+			int rrdn = note.getJSONObject("data").getInt("remain_resin_discount_num");
+			int ttn = note.getJSONObject("data").getInt("total_task_num");
+			int cr = note.getJSONObject("data").getInt("current_resin");
+			int mhc = note.getJSONObject("data").getInt("max_home_coin");
+			int ftn = note.getJSONObject("data").getInt("finished_task_num");
+			int cen = note.getJSONObject("data").getInt("current_expedition_num");
+			int mr = note.getJSONObject("data").getInt("max_resin");
+			int chc = note.getJSONObject("data").getInt("current_home_coin");
+			String rrt = note.getJSONObject("data").getString("resin_recovery_time");
+			String hcrt = note.getJSONObject("data").getString("home_coin_recovery_time");
+			boolean etrr = note.getJSONObject("data").getBoolean("is_extra_task_reward_received");
+			dn = new DailyNote(men, rdnl, rrdn, ttn, cr, mhc, ftn, cen, mr, chc, rrt, hcrt, etrr, e, t);
+		}
 
-		return new Player(uid, avt_list, stat, sa, we, dr, td);
+		return new Player(uid, avt_list, stat, sa, we, dr, td, dn);
 	}
 
 }

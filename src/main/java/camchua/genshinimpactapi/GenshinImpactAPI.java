@@ -81,7 +81,7 @@ public class GenshinImpactAPI {
 	
 	public String getTravelerDiaryInfo(String uid, int month, boolean cn) {
 		String server = Utils.getServerByUid(uid);
-		String urlPath = "event/ysledgeros/month_info?month=" + month + "&lang=en-us&uid=" + uid + "&region=" + server;
+		String urlPath = "event/ysledgeros/month_info" + "?month=" + month + "&lang=en-us" + "&uid=" + uid + "&region=" + server;
 		String url = cn ? this.CN_HK4E_URL + urlPath : this.OS_HK4E_URL + urlPath;
 		System.out.println("Traveler Diary Info url: " + url);
 		
@@ -89,6 +89,21 @@ public class GenshinImpactAPI {
 			return Utils.getConnectionResult(url, "get", "", cn).toString();
 		} catch (Exception e) {
 			System.out.println("Traveler Diary Info exception: " + e.getMessage());
+		}
+		
+		return "";
+	}
+	
+	public String getDailyNoteInfo(String uid, boolean cn) {
+		String server = Utils.getServerByUid(uid);
+		String urlPath = "game_record/genshin/api/dailyNote" + "?server=" + server + "&role_id=" + uid;
+		String url = cn ? this.CN_GAME_RECORD_URL + urlPath : this.OS_GAME_RECORD_URL + urlPath;
+		System.out.println("Daily Note Info url: " + url);
+		
+		try {
+			return Utils.getConnectionResult(url, "get", "", cn).toString();
+		} catch (Exception e) {
+			System.out.println("Daily Note Info exception: " + e.getMessage());
 		}
 		
 		return "";
