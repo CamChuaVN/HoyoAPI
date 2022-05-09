@@ -33,6 +33,8 @@ import camchua.genshinimpactapi.data.user.model.dailynote.DailyNoteTransformer;
 import camchua.genshinimpactapi.data.user.model.explorations.ExplorationsOfferings;
 import camchua.genshinimpactapi.data.user.model.explorations.WorldExplorations;
 import camchua.genshinimpactapi.data.user.model.explorations.WorldExplorations.Explorations;
+import camchua.genshinimpactapi.data.user.model.gachalog.GachaLog;
+import camchua.genshinimpactapi.data.user.model.gachalog.GachaLogItem;
 import camchua.genshinimpactapi.data.user.model.spiralabyss.SpiralAbyss;
 import camchua.genshinimpactapi.data.user.model.spiralabyss.SpiralAbyssAvatar;
 import camchua.genshinimpactapi.data.user.model.spiralabyss.floor.SpiralAbyssFirstHalfBattle;
@@ -53,6 +55,7 @@ import camchua.genshinimpactapi.data.user.model.travelerdiary.TravelerDiaryMonth
 import camchua.genshinimpactapi.data.user.model.travelerdiary.TravelerDiaryMonthDetail;
 import camchua.genshinimpactapi.data.user.model.travelerdiary.TravelerDiaryMonthDetail.MonthDetail;
 import camchua.genshinimpactapi.enums.ElementType;
+import camchua.genshinimpactapi.enums.GachaType;
 
 public class Utils {
 	
@@ -397,6 +400,50 @@ public class Utils {
 		}
 
 		return new Player(uid, avt_list, stat, sa, we, dr, td, dn);
+	}
+	
+	public static GachaLog initGachaLog(String authKey, GachaType gachaType, boolean cn) {
+		String end_id = null;
+		String region = "";
+		List<GachaLogItem> item = new ArrayList<GachaLogItem>();
+		while (true) {
+			String log_str = GenshinImpact.getAPI().getGachaLogInfo(authKey, gachaType, end_id, cn);
+			JSONObject log = new JSONObject(log_str);
+			
+			region = log.getJSONObject("data").getString("region");
+			
+			JSONArray list = log.getJSONObject("data").getJSONArray("list");
+			
+			if (list.length() <= 0) {
+				break;
+			}
+			
+			for (int i = 0; i < list.length(); i++) {
+				JSONObject data = log.getJSONObject("data").getJSONArray("list").getJSONObject(i);
+				
+				String u = data.getString("uid");
+				String ii = data.getString("item_id");
+				String it = data.getString("item_type");
+				String c = data.getString("count");
+				String n = data.getString("name");
+				GachaType gt = GachaType.getGachaType(Integer.parseInt(data.getString("gacha_type")));
+				String t = data.getString("time");
+				String id = data.getString("id");
+				String rt = data.getString("rank_type");
+				
+				item.add(new GachaLogItem(u, ii, it, c, n, gt, t, id, rt));
+				
+				if (i == list.length() - 1) end_id = id;
+			}
+			
+			try {
+				Thread.sleep(500);
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		return new GachaLog(item, region);
 	}
 
 }

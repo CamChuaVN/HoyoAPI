@@ -1,6 +1,8 @@
 package camchua.genshinimpactapi;
 
 import camchua.genshinimpactapi.data.user.model.Player;
+import camchua.genshinimpactapi.data.user.model.gachalog.GachaLog;
+import camchua.genshinimpactapi.enums.GachaType;
 import camchua.genshinimpactapi.utils.Utils;
 
 public class GenshinImpactAPI {
@@ -109,6 +111,20 @@ public class GenshinImpactAPI {
 		return "";
 	}
 	
+	public String getGachaLogInfo(String authKey, GachaType gachaType, String endId, boolean cn) {
+		String urlPath = "event/gacha_info/api/getGachaLog" + "?authkey_ver=1" + "&sign_type=2" + "&auth_appid=webview_gacha" + "&init_type=" + gachaType.getGachaType() + "&lang=en" + "&authkey=" + authKey + "&gacha_type=" + gachaType.getGachaType() + "&page=1" + "&size=20" + ((endId == null || endId.isEmpty()) ? "" : "&end_id=" + endId);
+		String url = cn ? this.CN_HK4E_URL + urlPath : this.OS_HK4E_URL + urlPath;
+		System.out.println("Gacha Log Info url: " + url);
+		
+		try {
+			return Utils.getConnectionResult(url, "get", "", cn).toString();
+		} catch (Exception e) {
+			System.out.println("Gacha Log Info exception: " + e.getMessage());
+		}
+		
+		return "";
+	}
+	
 	
 	public String getDailyRewardHome(boolean cn) {
 		String urlPath = "event/sol/home?lang=en-us&act_id=e202102251931481";
@@ -143,6 +159,10 @@ public class GenshinImpactAPI {
 
 	public Player getPlayer(String uid, boolean cn) {
 		return Utils.initPlayer(uid, cn);
+	}
+	
+	public GachaLog getGachaLog(String autkKey, GachaType gachaType, boolean cn) {
+		return Utils.initGachaLog(autkKey, gachaType, cn);
 	}
 
 }
