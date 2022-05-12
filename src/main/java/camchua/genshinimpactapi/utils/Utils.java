@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.python.core.PyObject;
-import org.python.util.PythonInterpreter;
 import org.springframework.util.DigestUtils;
 
 import camchua.genshinimpactapi.GenshinImpact;
@@ -63,17 +61,11 @@ public class Utils {
 	private static String CN_DS_SALT = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
 
 	public static String generateDS() {
-		PythonInterpreter python = new PythonInterpreter();
-		python.set("salt", OS_DS_SALT);
-		python.set("r", "ABCDEF");
-		python.exec("import time, hashlib");
-		python.exec("t = int(time.time())");
-		python.exec("e = 'salt=' + salt + '&t=' + str(t) + '&r=' + r");
-		python.exec("h = hashlib.md5(e.encode()).hexdigest()");
-		python.exec("result = str(t) + ',' + r + ',' + h");
-		PyObject result = python.get("result");
-		python.close();
-		return result.asString();
+		String md5Version = OS_DS_SALT;
+		String t = Long.toString(System.currentTimeMillis() / 1000);
+		String r = random(6);
+		String c = DigestUtils.md5DigestAsHex(("salt=" + md5Version + "&t=" + t + "&r=" + r).getBytes());
+		return t + "," + r + "," + c;
 	}
 	
 	public static String generateDS_CN() {
