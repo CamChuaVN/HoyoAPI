@@ -118,6 +118,7 @@ public class Utils {
 		return server;
 	}
 
+
 	public static JSONObject getConnectionResult(String url, String method, String reqBody, boolean cn) {
 		try {
 			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
@@ -141,6 +142,41 @@ public class Utils {
 			connection.setRequestProperty("sec-fetch-dest", "empty");
 			connection.setRequestProperty("ds", cn ? Utils.generateDS_CN() : Utils.generateDS());
 			connection.setRequestProperty("cookie", GenshinImpact.inst().getCookie());
+			connection.setUseCaches(false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			final String response = reader.lines().collect(Collectors.joining());
+			return new JSONObject(response);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static JSONObject getConnectionResult(String url, String method, String reqBody, String ltuid, String ltoken, boolean cn) {
+		try {
+			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+			HttpURLConnection connection = null;
+			try {
+				connection = (HttpURLConnection) new URL(url + reqBody).openConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+			connection.setRequestMethod(method.toUpperCase());
+			connection.setRequestProperty("User-Agent", "miHoYoBBS/2.5.1");
+			connection.setRequestProperty("x-rpc-language", "en-us");
+			connection.setRequestProperty("x-rpc-app_version", "2.2.1");
+			connection.setRequestProperty("x-rpc-client_type", "4");
+			connection.setRequestProperty("x-requested-with", "com.mihoyo.hyperion");
+			connection.setRequestProperty("referer", "https://webstatic.mihoyo.com/");
+			connection.setRequestProperty("origin", "https://webstatic.mihoyo.com");
+			connection.setRequestProperty("sec-fetch-site", "same-site");
+			connection.setRequestProperty("sec-fetch-mode", "cors");
+			connection.setRequestProperty("sec-fetch-dest", "empty");
+			connection.setRequestProperty("ds", cn ? Utils.generateDS_CN() : Utils.generateDS());
+			connection.setRequestProperty("cookie", (!ltuid.isEmpty() && !ltoken.isEmpty()) ? GenshinImpact.inst().getCookie(ltoken, ltuid) : GenshinImpact.inst().getCookie());
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
