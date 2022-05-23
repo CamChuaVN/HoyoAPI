@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.util.DigestUtils;
 
 import camchua.genshinimpactapi.GenshinImpact;
 import camchua.genshinimpactapi.data.user.model.Avatar;
