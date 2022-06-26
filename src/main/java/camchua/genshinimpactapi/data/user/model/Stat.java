@@ -5,7 +5,6 @@ public class Stat {
 	private String playerId;
 	private int activeDayNumber;
 	private int achievementNumber;
-	private int winRate;
 	private int anemoculusNumber;
 	private int geoculusNumber;
 	private int electroculusNumber;
@@ -19,7 +18,7 @@ public class Stat {
 	private int magicChestNumber;
 	private String spiralAbyss;
 
-	public Stat(String playerId, int activeDayNumber, int achievementNumber, int winRate, int anemoculusNumber,
+	public Stat(String playerId, int activeDayNumber, int achievementNumber, int anemoculusNumber,
 			int geoculusNumber, int electroculusNumber, int avatarNumber, int wayPointNumber, int domainNumber,
 			int preciousChestNumber, int luxuriousChestNumber, int exquisiteChestNumber, int commonChestNumber,
 			int magicChestNumber, String spiralAbyss) {
@@ -27,7 +26,6 @@ public class Stat {
 		this.playerId = playerId;
 		this.activeDayNumber = activeDayNumber;
 		this.achievementNumber = achievementNumber;
-		this.winRate = winRate;
 		this.anemoculusNumber = anemoculusNumber;
 		this.geoculusNumber = geoculusNumber;
 		this.electroculusNumber = electroculusNumber;
@@ -52,10 +50,6 @@ public class Stat {
 
 	public int getAchievementNumber() {
 		return achievementNumber;
-	}
-
-	public int getWinRate() {
-		return winRate;
 	}
 
 	public int getAnemoculusNumber() {

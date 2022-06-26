@@ -9,12 +9,11 @@ import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import camchua.genshinimpactapi.data.user.model.item.Reliquaries;
+import camchua.genshinimpactapi.data.user.model.item.Weapon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -215,8 +214,41 @@ public class Utils {
 			int rarity = avts.getInt("rarity");
 			int fetter = avts.getInt("fetter");
 			int level = avts.getInt("level");
+			int constellations = avts.getInt("actived_constellation_num");
+			String icon = avts.getString("icon");
 
-			Avatar avtss = new Avatar(uid, avatarId, name, element, rarity, fetter, level);
+			Weapon weapon = null;
+			if(true) {
+				JSONObject wps = avts.getJSONObject("weapon");
+				int promoteLevel = wps.getInt("promote_level");
+				int affixLevel = wps.getInt("affix_level");
+				String typeName = wps.getString("type_name");
+				int weaponLevel = wps.getInt("level");
+				String weaponNname = wps.getString("name");
+				String weaponIcon = wps.getString("icon");
+				int id = wps.getInt("id");
+				int type = wps.getInt("type");
+				int weaponRarity = wps.getInt("rarity");
+				String desc = wps.getString("desc");
+				weapon = new Weapon(promoteLevel, affixLevel, typeName, weaponLevel, weaponNname, weaponIcon, id, type, weaponRarity, desc);
+			}
+
+			LinkedHashMap<Reliquaries.ReliquariesPosition, Reliquaries> reliquaries = new LinkedHashMap<>();
+			if(true) {
+				JSONArray rlqs = avts.getJSONArray("reliquaries");
+				for(int ii = 0; ii < rlqs.length(); ii++) {
+					JSONObject rlq = rlqs.getJSONObject(ii);
+					Reliquaries.ReliquariesPosition position = Reliquaries.ReliquariesPosition.valueOf(rlq.getString("pos_name").replace(" ", "_").toUpperCase());
+					int reliquariesLevel = rlq.getInt("level");
+					String reliquariesName = rlq.getString("name");
+					String reliquariesIcon = rlq.getString("icon");
+					int id = rlq.getInt("id");
+					int reliquariesRarity = rlq.getInt("rarity");
+					reliquaries.put(position, new Reliquaries(position, reliquariesLevel, reliquariesName, reliquariesIcon, id, reliquariesRarity));
+				}
+			}
+
+			Avatar avtss = new Avatar(uid, avatarId, name, element, rarity, fetter, level, constellations, reliquaries, weapon, icon);
 			avt_list.add(avtss);
 		}
 
@@ -224,7 +256,6 @@ public class Utils {
 		if (true) {
 			int activeDayNumber = stats.getInt("active_day_number");
 			int achievementNumber = stats.getInt("achievement_number");
-			int winRate = stats.getInt("win_rate");
 
 			int anemoculusNumber = stats.getInt("anemoculus_number");
 			int geoculusNumber = stats.getInt("geoculus_number");
@@ -241,7 +272,7 @@ public class Utils {
 
 			String spiralAbysss = stats.getString("spiral_abyss");
 
-			stat = new Stat(uid, activeDayNumber, achievementNumber, winRate, anemoculusNumber, geoculusNumber,
+			stat = new Stat(uid, activeDayNumber, achievementNumber, anemoculusNumber, geoculusNumber,
 					electroculusNumber, avatarNumber, wayPointNumber, domainNumber, preciousChestNumber,
 					luxuriousChestNumber, exquisiteChestNumber, commonChestNumber, magicChestNumber, spiralAbysss);
 		}

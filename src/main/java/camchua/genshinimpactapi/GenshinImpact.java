@@ -39,13 +39,18 @@ public class GenshinImpact {
 	}
 
 	public String getCookie() {
-		if (this.ltoken == null || this.ltuid == null)
+		if(this.ltoken == null || this.ltuid == null)
 			return "";
 		return "ltoken=" + this.ltoken + "; ltuid=" + this.ltuid;
 	}
 
 	public String getCookie(String ltoken, String ltuid) {
 		return "ltoken=" + ltoken + "; ltuid=" + ltuid;
+	}
+
+	public void resetCookie() {
+		this.ltuid = "";
+		this.ltoken = "";
 	}
 
 
