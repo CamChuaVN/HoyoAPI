@@ -1,22 +1,24 @@
 package camchua.genshinimpactapi.data.user.model;
 
+import lombok.Getter;
+
 public class Stat {
 
-	private String playerId;
-	private int activeDayNumber;
-	private int achievementNumber;
-	private int anemoculusNumber;
-	private int geoculusNumber;
-	private int electroculusNumber;
-	private int avatarNumber;
-	private int wayPointNumber;
-	private int domainNumber;
-	private int preciousChestNumber;
-	private int luxuriousChestNumber;
-	private int exquisiteChestNumber;
-	private int commonChestNumber;
-	private int magicChestNumber;
-	private String spiralAbyss;
+	@Getter private String playerId;
+	@Getter private int activeDayNumber;
+	@Getter private int achievementNumber;
+	@Getter private int anemoculusNumber;
+	@Getter private int geoculusNumber;
+	@Getter private int electroculusNumber;
+	@Getter private int avatarNumber;
+	@Getter private int wayPointNumber;
+	@Getter private int domainNumber;
+	@Getter private int preciousChestNumber;
+	@Getter private int luxuriousChestNumber;
+	@Getter private int exquisiteChestNumber;
+	@Getter private int commonChestNumber;
+	@Getter private int magicChestNumber;
+	@Getter private String spiralAbyss;
 
 	public Stat(String playerId, int activeDayNumber, int achievementNumber, int anemoculusNumber,
 			int geoculusNumber, int electroculusNumber, int avatarNumber, int wayPointNumber, int domainNumber,
@@ -38,66 +40,6 @@ public class Stat {
 		this.commonChestNumber = commonChestNumber;
 		this.magicChestNumber = magicChestNumber;
 		this.spiralAbyss = spiralAbyss;
-	}
-
-	public String getPlayerId() {
-		return playerId;
-	}
-
-	public int getActiveDayNumber() {
-		return activeDayNumber;
-	}
-
-	public int getAchievementNumber() {
-		return achievementNumber;
-	}
-
-	public int getAnemoculusNumber() {
-		return anemoculusNumber;
-	}
-
-	public int getGeoculusNumber() {
-		return geoculusNumber;
-	}
-
-	public int getElectroculusNumber() {
-		return electroculusNumber;
-	}
-
-	public int getAvatarNumber() {
-		return avatarNumber;
-	}
-
-	public int getWayPointNumber() {
-		return wayPointNumber;
-	}
-
-	public int getDomainNumber() {
-		return domainNumber;
-	}
-
-	public int getPreciousChestNumber() {
-		return preciousChestNumber;
-	}
-
-	public int getLuxuriousChestNumber() {
-		return luxuriousChestNumber;
-	}
-
-	public int getExquisiteChestNumber() {
-		return exquisiteChestNumber;
-	}
-
-	public int getCommonChestNumber() {
-		return commonChestNumber;
-	}
-
-	public int getMagicChestNumber() {
-		return magicChestNumber;
-	}
-
-	public String getSpiralAbyss() {
-		return spiralAbyss;
 	}
 
 }

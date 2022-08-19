@@ -1,13 +1,15 @@
 package camchua.genshinimpactapi.data.user.model.item;
 
+import lombok.Getter;
+
 public class Reliquaries {
 
-    private ReliquariesPosition position;
-    private int level;
-    private String name;
-    private String iconUrl;
-    private int id;
-    private int rarity;
+    @Getter private ReliquariesPosition position;
+    @Getter private int level;
+    @Getter private String name;
+    @Getter private String iconUrl;
+    @Getter private int id;
+    @Getter private int rarity;
 
     public Reliquaries(ReliquariesPosition pos, int level, String name, String icon, int id, int rarity) {
         this.position = pos;
@@ -17,31 +19,6 @@ public class Reliquaries {
         this.id = id;
         this.rarity = rarity;
     }
-
-    public ReliquariesPosition getPosition() {
-        return position;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getRarity() {
-        return rarity;
-    }
-
 
 
     public enum ReliquariesPosition {

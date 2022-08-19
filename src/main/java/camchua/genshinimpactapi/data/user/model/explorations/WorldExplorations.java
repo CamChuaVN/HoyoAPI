@@ -1,30 +1,28 @@
 package camchua.genshinimpactapi.data.user.model.explorations;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorldExplorations {
 
-	private List<Explorations> exploration = new ArrayList<>();
+	@Getter private List<Explorations> exploration = new ArrayList<>();
 
 	public WorldExplorations(List<Explorations> explorations) {
 		for (Explorations e : explorations)
 			exploration.add(e);
 	}
 
-	public List<Explorations> getExploration() {
-		return exploration;
-	}
-
 	public static class Explorations {
 
-		private String name;
-		private String type;
-		private int level;
-		private double explorationPercentage;
-		private int id;
-		private int parentId;
-		private ExplorationsOfferings explorationsOffertings;
+		@Getter private String name;
+		@Getter private String type;
+		@Getter private int level;
+		@Getter private double explorationPercentage;
+		@Getter private int id;
+		@Getter private int parentId;
+		@Getter private ExplorationsOfferings explorationsOffertings;
 
 		public Explorations(String name, String type, int level, double explorationPercentage, int id, int parentId,
 				ExplorationsOfferings explorationsOfferings) {
@@ -35,34 +33,6 @@ public class WorldExplorations {
 			this.id = id;
 			this.parentId = parentId;
 			this.explorationsOffertings = explorationsOfferings;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getType() {
-			return type;
-		}
-
-		public int getLevel() {
-			return level;
-		}
-
-		public double getExplorationPercentage() {
-			return explorationPercentage;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public int getParentId() {
-			return parentId;
-		}
-
-		public ExplorationsOfferings getExplorationsOffertings() {
-			return explorationsOffertings;
 		}
 
 	}

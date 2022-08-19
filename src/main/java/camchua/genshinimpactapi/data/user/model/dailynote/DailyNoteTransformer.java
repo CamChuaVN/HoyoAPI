@@ -1,13 +1,15 @@
 package camchua.genshinimpactapi.data.user.model.dailynote;
 
+import lombok.Getter;
+
 public class DailyNoteTransformer {
 	
-	private boolean obtained;
-	private int recoverySecond;
-	private int recoveryMinute;
-	private int recoveryHour;
-	private int recoveryDay;
-	private boolean recoveryReached;
+	@Getter private boolean obtained;
+	@Getter private int recoverySecond;
+	@Getter private int recoveryMinute;
+	@Getter private int recoveryHour;
+	@Getter private int recoveryDay;
+	@Getter private boolean recoveryReached;
 	
 	public DailyNoteTransformer(boolean obtained, int rs, int rm, int rh, int rd, boolean rr) {
 		this.obtained = obtained;
@@ -16,30 +18,6 @@ public class DailyNoteTransformer {
 		this.recoveryHour = rh;
 		this.recoveryDay = rd;
 		this.recoveryReached = rr;
-	}
-
-	public boolean isObtained() {
-		return obtained;
-	}
-
-	public int getRecoverySecond() {
-		return recoverySecond;
-	}
-
-	public int getRecoveryMinute() {
-		return recoveryMinute;
-	}
-
-	public int getRecoveryHour() {
-		return recoveryHour;
-	}
-
-	public int getRecoveryDay() {
-		return recoveryDay;
-	}
-
-	public boolean isRecoveryReached() {
-		return recoveryReached;
 	}
 
 }

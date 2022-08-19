@@ -1,17 +1,19 @@
 package camchua.genshinimpactapi.data.user.model.item;
 
+import lombok.Getter;
+
 public class Weapon {
 
-    private int promoteLevel;
-    private int affixLevel;
-    private String typeName;
-    private int level;
-    private String name;
-    private String icon;
-    private int id;
-    private int type;
-    private int rarity;
-    private String desc;
+    @Getter private int promoteLevel;
+    @Getter private int affixLevel;
+    @Getter private String typeName;
+    @Getter private int level;
+    @Getter private String name;
+    @Getter private String icon;
+    @Getter private int id;
+    @Getter private int type;
+    @Getter private int rarity;
+    @Getter private String desc;
 
 
     public Weapon(int promoteLevel, int affixLevel, String typeName, int level, String name, String icon, int id, int type, int rarity, String desc) {
@@ -27,43 +29,4 @@ public class Weapon {
         this.desc = desc;
     }
 
-    public int getPromoteLevel() {
-        return promoteLevel;
-    }
-
-    public int getAffixLevel() {
-        return affixLevel;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public int getRarity() {
-        return rarity;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
 }

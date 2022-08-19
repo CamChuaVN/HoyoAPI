@@ -1,21 +1,15 @@
 package camchua.genshinimpactapi.data.user.model.travelerdiary;
 
+import lombok.Getter;
+
 public class TravelerDiaryMonthData {
 
-	private int primogems;
-	private int mora;
+	@Getter private int primogems;
+	@Getter private int mora;
 
 	public TravelerDiaryMonthData(int primogems, int mora) {
 		this.primogems = primogems;
 		this.mora = mora;
-	}
-
-	public int getPrimogems() {
-		return primogems;
-	}
-
-	public int getMora() {
-		return mora;
 	}
 
 }

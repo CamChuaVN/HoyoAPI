@@ -2,8 +2,10 @@ package camchua.genshinimpactapi.enums;
 
 public enum GachaType {
 
-	NOVICE_WISHES(100, "Novice Wishes"), PERMANENT_WISH(200, "Permanent Wish"),
-	CHARACTER_EVENT_WISH(301, "Character Event Wish"), WEAPON_EVENT_WISH(302, "Weapon Event Wish");
+	NOVICE_WISHES(100, "Novice Wishes"),
+	PERMANENT_WISH(200, "Permanent Wish"),
+	CHARACTER_EVENT_WISH(301, "Character Event Wish"),
+	WEAPON_EVENT_WISH(302, "Weapon Event Wish");
 
 	private int gachaType;
 	private String name;

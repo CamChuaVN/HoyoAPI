@@ -1,22 +1,24 @@
 package camchua.genshinimpactapi.data.user.model.dailynote;
 
+import lombok.Getter;
+
 public class DailyNote {
 	
-	private int maxExpeditionNum;
-	private int resinDiscountNumLimit;
-	private int remainResinDiscountNum;
-	private int totalTaskNum;
-	private int currentResin;
-	private int maxHomeCoin;
-	private int finishedTaskNum;
-	private int currentExpeditionNum;
-	private int maxResin;
-	private int currentHomeCoin;
-	private String resinRecoveryTime;
-	private String homeCoinRecoveryTime;
-	private boolean extraTaskRewardReceived;
-	private DailyNoteExpeditions expeditions;
-	private DailyNoteTransformer transformer;
+	@Getter private int maxExpeditionNum;
+	@Getter private int resinDiscountNumLimit;
+	@Getter private int remainResinDiscountNum;
+	@Getter private int totalTaskNum;
+	@Getter private int currentResin;
+	@Getter private int maxHomeCoin;
+	@Getter private int finishedTaskNum;
+	@Getter private int currentExpeditionNum;
+	@Getter private int maxResin;
+	@Getter private int currentHomeCoin;
+	@Getter private String resinRecoveryTime;
+	@Getter private String homeCoinRecoveryTime;
+	@Getter private boolean extraTaskRewardReceived;
+	@Getter private DailyNoteExpeditions expeditions;
+	@Getter private DailyNoteTransformer transformer;
 	
 	public DailyNote(int men, int rdnl, int rrdn, int ttn, int cr, int mhc, int ftn, int cen, int mr, int chc, String rrt, String hcrt, boolean etrr, DailyNoteExpeditions e, DailyNoteTransformer t) {
 		this.maxExpeditionNum = men;
@@ -34,66 +36,6 @@ public class DailyNote {
 		this.extraTaskRewardReceived = etrr;
 		this.expeditions = e;
 		this.transformer = t;
-	}
-
-	public int getMaxExpeditionNum() {
-		return maxExpeditionNum;
-	}
-
-	public int getResinDiscountNumLimit() {
-		return resinDiscountNumLimit;
-	}
-
-	public int getRemainResinDiscountNum() {
-		return remainResinDiscountNum;
-	}
-
-	public int getTotalTaskNum() {
-		return totalTaskNum;
-	}
-
-	public int getCurrentResin() {
-		return currentResin;
-	}
-
-	public int getMaxHomeCoin() {
-		return maxHomeCoin;
-	}
-
-	public int getFinishedTaskNum() {
-		return finishedTaskNum;
-	}
-
-	public int getCurrentExpeditionNum() {
-		return currentExpeditionNum;
-	}
-
-	public int getMaxResin() {
-		return maxResin;
-	}
-
-	public int getCurrentHomeCoin() {
-		return currentHomeCoin;
-	}
-
-	public String getResinRecoveryTime() {
-		return resinRecoveryTime;
-	}
-
-	public String getHomeCoinRecoveryTime() {
-		return homeCoinRecoveryTime;
-	}
-
-	public boolean isExtraTaskRewardReceived() {
-		return extraTaskRewardReceived;
-	}
-
-	public DailyNoteExpeditions getExpeditions() {
-		return expeditions;
-	}
-
-	public DailyNoteTransformer getTransformer() {
-		return transformer;
 	}
 
 }

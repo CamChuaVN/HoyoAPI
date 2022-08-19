@@ -1,16 +1,17 @@
 package camchua.genshinimpactapi.data.user.model;
 
+import lombok.Getter;
 import org.json.JSONObject;
 
 import camchua.genshinimpactapi.GenshinImpact;
 
 public class DailyReward {
 
-	private int totalSignDay;
-	private boolean sign;
-	private String region;
-	private boolean sub;
-	private boolean firstBind;
+	@Getter private int totalSignDay;
+	@Getter private boolean sign;
+	@Getter private String region;
+	@Getter private boolean sub;
+	@Getter private boolean firstBind;
 
 	public DailyReward(int totalSignDay, boolean sign, String region, boolean sub, boolean firstBind) {
 		this.totalSignDay = totalSignDay;
@@ -18,26 +19,6 @@ public class DailyReward {
 		this.region = region;
 		this.sub = sub;
 		this.firstBind = firstBind;
-	}
-
-	public int getTotalSignDay() {
-		return totalSignDay;
-	}
-
-	public boolean isSign() {
-		return sign;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public boolean isSub() {
-		return sub;
-	}
-
-	public boolean isFirstBind() {
-		return firstBind;
 	}
 
 	public String claimToday(boolean cn) {

@@ -1,12 +1,14 @@
 package camchua.genshinimpactapi.data.user.model.spiralabyss.floor;
 
+import lombok.Getter;
+
 public class SpiralAbyssStage {
 
-	private int star;
-	private int maxStar;
-	private int stage;
-	private SpiralAbyssFirstHalfBattle firstHalf;
-	private SpiralAbyssSecondHalfBattle secondHalf;
+	@Getter private int star;
+	@Getter private int maxStar;
+	@Getter private int stage;
+	@Getter private SpiralAbyssFirstHalfBattle firstHalf;
+	@Getter private SpiralAbyssSecondHalfBattle secondHalf;
 
 	public SpiralAbyssStage(int star, int maxStar, int stage, SpiralAbyssFirstHalfBattle firstHalf,
 			SpiralAbyssSecondHalfBattle secondHalf) {
@@ -15,26 +17,6 @@ public class SpiralAbyssStage {
 		this.stage = stage;
 		this.firstHalf = firstHalf;
 		this.secondHalf = secondHalf;
-	}
-
-	public int getStar() {
-		return star;
-	}
-
-	public int getMaxStar() {
-		return maxStar;
-	}
-
-	public int getStage() {
-		return stage;
-	}
-
-	public SpiralAbyssFirstHalfBattle getFirstHalf() {
-		return firstHalf;
-	}
-
-	public SpiralAbyssSecondHalfBattle getSecondHalf() {
-		return secondHalf;
 	}
 
 }

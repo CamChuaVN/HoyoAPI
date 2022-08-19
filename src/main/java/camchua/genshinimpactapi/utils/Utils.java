@@ -192,7 +192,7 @@ public class Utils {
 		JSONObject info = new JSONObject(info_str);
 		if (info.getInt("retcode") != 0) {
 			System.out.println("Init Player error: " + info.getString("message"));
-			return new Player("", new ArrayList<>(), null, null, null, null, null, null);
+			return new Player("", new ArrayList<>(), null, null, null, null, null, null, "", 0, "");
 		}
 
 		String avt_str = GenshinImpact.getAPI().getCharacterInfo(uid, cn);
@@ -457,7 +457,11 @@ public class Utils {
 			dn = new DailyNote(men, rdnl, rrdn, ttn, cr, mhc, ftn, cen, mr, chc, rrt, hcrt, etrr, e, t);
 		}
 
-		return new Player(uid, avt_list, stat, sa, we, dr, td, dn);
+		JSONObject role = info.getJSONObject("data").getJSONObject("role");
+		String name = role.getString("nickname");
+		int level = role.getInt("level");
+		String region = role.getString("region");
+		return new Player(uid, avt_list, stat, sa, we, dr, td, dn, name, level, region);
 	}
 	
 	public static GachaLog initGachaLog(String authKey, GachaType gachaType, boolean cn) {

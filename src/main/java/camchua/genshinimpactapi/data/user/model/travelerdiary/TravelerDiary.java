@@ -1,12 +1,14 @@
 package camchua.genshinimpactapi.data.user.model.travelerdiary;
 
+import lombok.Getter;
+
 public class TravelerDiary {
 
-	private int dataMonth;
-	private String region;
-	private TravelerDiaryDayData dayData;
-	private TravelerDiaryMonthData monthData;
-	private TravelerDiaryMonthDetail monthDetail;
+	@Getter private int dataMonth;
+	@Getter private String region;
+	@Getter private TravelerDiaryDayData dayData;
+	@Getter private TravelerDiaryMonthData monthData;
+	@Getter private TravelerDiaryMonthDetail monthDetail;
 
 	public TravelerDiary(int dataMonth, String region, TravelerDiaryDayData dayData, TravelerDiaryMonthData monthData,
 			TravelerDiaryMonthDetail monthDetail) {
@@ -15,26 +17,6 @@ public class TravelerDiary {
 		this.dayData = dayData;
 		this.monthData = monthData;
 		this.monthDetail = monthDetail;
-	}
-
-	public int getDataMonth() {
-		return dataMonth;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public TravelerDiaryDayData getDayData() {
-		return dayData;
-	}
-
-	public TravelerDiaryMonthData getMonthData() {
-		return monthData;
-	}
-
-	public TravelerDiaryMonthDetail getMonthDetail() {
-		return monthDetail;
 	}
 
 }

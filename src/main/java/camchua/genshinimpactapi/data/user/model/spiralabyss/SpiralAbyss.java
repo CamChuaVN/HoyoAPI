@@ -7,22 +7,23 @@ import camchua.genshinimpactapi.data.user.model.spiralabyss.rank.SpiralAbyssEner
 import camchua.genshinimpactapi.data.user.model.spiralabyss.rank.SpiralAbyssNormalSkillRank;
 import camchua.genshinimpactapi.data.user.model.spiralabyss.rank.SpiralAbyssRevealRank;
 import camchua.genshinimpactapi.data.user.model.spiralabyss.rank.SpiralAbyssTakeDamageRank;
+import lombok.Getter;
 
 public class SpiralAbyss {
 
-	private int totalWinTimes;
-	private int totalStar;
-	private int totalBattleTimes;
-	private String maxFloor;
+	@Getter private int totalWinTimes;
+	@Getter private int totalStar;
+	@Getter private int totalBattleTimes;
+	@Getter private String maxFloor;
 
-	private SpiralAbyssFloor spiralAbyssFloor;
+	@Getter private SpiralAbyssFloor spiralAbyssFloor;
 
-	private SpiralAbyssDamageRank spiralAbyssDamageRank;
-	private SpiralAbyssDefeatRank spiralAbyssDefeatRank;
-	private SpiralAbyssEnergySkillRank spiralAbyssEnergySkillRank;
-	private SpiralAbyssNormalSkillRank spiralAbyssNormalSkillRank;
-	private SpiralAbyssRevealRank spiralAbyssRevealRank;
-	private SpiralAbyssTakeDamageRank spiralAbyssTakeDamageRank;
+	@Getter private SpiralAbyssDamageRank spiralAbyssDamageRank;
+	@Getter private SpiralAbyssDefeatRank spiralAbyssDefeatRank;
+	@Getter private SpiralAbyssEnergySkillRank spiralAbyssEnergySkillRank;
+	@Getter private SpiralAbyssNormalSkillRank spiralAbyssNormalSkillRank;
+	@Getter private SpiralAbyssRevealRank spiralAbyssRevealRank;
+	@Getter private SpiralAbyssTakeDamageRank spiralAbyssTakeDamageRank;
 
 	public SpiralAbyss(int totalWinTimes, int totalStar, int totalBattleTimes, String maxFloor,
 			SpiralAbyssFloor spiralAbyssFloor, 
@@ -38,50 +39,6 @@ public class SpiralAbyss {
 		this.spiralAbyssNormalSkillRank = normalSkillRank;
 		this.spiralAbyssRevealRank = revealRank;
 		this.spiralAbyssTakeDamageRank = takeDamageRank;
-	}
-
-	public int getTotalWinTimes() {
-		return totalWinTimes;
-	}
-
-	public int getTotalStar() {
-		return totalStar;
-	}
-
-	public int getTotalBattleTimes() {
-		return totalBattleTimes;
-	}
-
-	public String getMaxFloor() {
-		return maxFloor;
-	}
-
-	public SpiralAbyssFloor getSpiralAbyssFloor() {
-		return spiralAbyssFloor;
-	}
-
-	public SpiralAbyssDamageRank getSpiralAbyssDamageRank() {
-		return spiralAbyssDamageRank;
-	}
-
-	public SpiralAbyssDefeatRank getSpiralAbyssDefeatRank() {
-		return spiralAbyssDefeatRank;
-	}
-
-	public SpiralAbyssEnergySkillRank getSpiralAbyssEnergySkillRank() {
-		return spiralAbyssEnergySkillRank;
-	}
-
-	public SpiralAbyssNormalSkillRank getSpiralAbyssNormalSkillRank() {
-		return spiralAbyssNormalSkillRank;
-	}
-
-	public SpiralAbyssRevealRank getSpiralAbyssRevealRank() {
-		return spiralAbyssRevealRank;
-	}
-
-	public SpiralAbyssTakeDamageRank getSpiralAbyssTakeDamageRank() {
-		return spiralAbyssTakeDamageRank;
 	}
 
 }
