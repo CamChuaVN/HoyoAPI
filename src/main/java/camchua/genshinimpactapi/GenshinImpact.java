@@ -25,6 +25,7 @@ public class GenshinImpact {
 
 	private String ltoken;
 	private String ltuid;
+	private String cookie_token;
 
 	private boolean debug;
 
@@ -32,25 +33,26 @@ public class GenshinImpact {
 		inst = this;
 	}
 
-	public void setCookie(String ltoken, String ltuid) {
+	public void setCookie(String ltoken, String ltuid, String cookie_token) {
 		this.ltoken = ltoken;
 		this.ltuid = ltuid;
-		this.debug = false;
+		this.cookie_token = cookie_token;
 	}
 
 	public String getCookie() {
-		if(this.ltoken == null || this.ltuid == null)
+		if(this.ltoken == null || this.ltuid == null || this.cookie_token == null)
 			return "";
-		return "ltoken=" + this.ltoken + "; ltuid=" + this.ltuid;
+		return "ltoken=" + this.ltoken + "; ltuid=" + this.ltuid + "; account_id=" + this.ltuid + "; cookie_token=" + this.cookie_token;
 	}
 
-	public String getCookie(String ltoken, String ltuid) {
-		return "ltoken=" + ltoken + "; ltuid=" + ltuid;
+	public String getCookie(String ltoken, String ltuid, String cookie_token) {
+		return "ltoken=" + ltoken + "; ltuid=" + ltuid + "; account_id=" + ltuid + "; cookie_token=" + cookie_token;
 	}
 
 	public void resetCookie() {
 		this.ltuid = "";
 		this.ltoken = "";
+		this.cookie_token = "";
 	}
 
 

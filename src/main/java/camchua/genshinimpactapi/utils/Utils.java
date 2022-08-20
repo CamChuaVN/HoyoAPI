@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import camchua.genshinimpactapi.data.cdkey.CdkeyRedeem;
 import camchua.genshinimpactapi.data.user.model.item.Reliquaries;
 import camchua.genshinimpactapi.data.user.model.item.Weapon;
 import org.json.JSONArray;
@@ -152,7 +153,7 @@ public class Utils {
 		}
 	}
 
-	public static JSONObject getConnectionResult(String url, String method, String reqBody, String ltuid, String ltoken, boolean cn) {
+	public static JSONObject getConnectionResult(String url, String method, String reqBody, String ltuid, String ltoken, String cookie_token, boolean cn) {
 		try {
 			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 			HttpURLConnection connection = null;
@@ -174,7 +175,7 @@ public class Utils {
 			connection.setRequestProperty("sec-fetch-mode", "cors");
 			connection.setRequestProperty("sec-fetch-dest", "empty");
 			connection.setRequestProperty("ds", cn ? Utils.generateDS_CN() : Utils.generateDS());
-			connection.setRequestProperty("cookie", (!ltuid.isEmpty() && !ltoken.isEmpty()) ? GenshinImpact.inst().getCookie(ltoken, ltuid) : GenshinImpact.inst().getCookie());
+			connection.setRequestProperty("cookie", (!ltuid.isEmpty() && !ltoken.isEmpty()) ? GenshinImpact.inst().getCookie(ltoken, ltuid, cookie_token) : GenshinImpact.inst().getCookie());
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
@@ -506,6 +507,12 @@ public class Utils {
 		}
 		
 		return new GachaLog(item, region);
+	}
+
+	public static CdkeyRedeem initCdkeyRedeem(String uid, String cdkey, boolean cn) {
+		String code_str = GenshinImpact.getAPI().getWebExchangeCdkey(uid, cdkey, cn);
+		JSONObject code = new JSONObject(code_str);
+		return new CdkeyRedeem(cdkey, code.getInt("retcode") == 0, code.getString("message"), uid, Utils.getServerByUid(uid));
 	}
 
 }
