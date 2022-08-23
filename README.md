@@ -1,5 +1,5 @@
-# GenshinImpactAPI
-> <em>An API access to user data for Genshin Impact</em>
+# HoyoAPI
+> <em>An API access to Hoyo Data</em>
 
 This API is only access to user who have public their data on Hoyolab or user you provide token
 
@@ -9,26 +9,39 @@ Setup your cookie
 // Put your ltoken and ltuid
 String ltoken = "";
 String ltuid = "";
-GenshinImpact.inst().setCookie(ltoken, ltuid);
+String cookie_token = "";
+String uid = "";
+HoyoAPI.inst().setCookie(ltoken, ltuid, cookie_token);
 ```
 
-Access to API
+## Access to API HoyoLab
 ```java
-GenshinImpactAPI api = GenshinImpact.getAPI();
+HoyoLabAPI api = HoyoAPI.inst().hoyolab();
+```
+
+Search something on HoyoLab
+```java
+String keyword = "search";
+HoyoGame hoyoGame = HoyoGame.HOYOLAB;
+HoyoSearch search = api.search(keyword, hoyoGame);
+```
+
+## Access to API Genshin
+```java
+GenshinImpactAPI api = HoyoAPI.inst().genshin();
 ```
 
 Now you can get user data by put your uid
 ```java
-// Change false -> true to access CN data
-Player player = api.getPlayer("put your uid here", false);
+Player player = api.getPlayer(uid);
 ```
 
-## How to get ltoken and ltuid
+## How to get ltoken, ltuid and cookie token
 - Login into Hoyolab via browser
 - Press F12 to open Developer Tools
 - Choose "Application" tab
 - Select "Cookies" then select Hoyolab domain
-- On the right page, copy ltuid and ltoken value
+- On the right page, copy ltuid, ltoken and cookie token value
 
-## Note
+## Note Genshin
 Daily Note, Traveler Diary, Daily Reward and Spiral Abyss can only access to you data, can not access to other user. If you trying to get other user data, it will return your data.
