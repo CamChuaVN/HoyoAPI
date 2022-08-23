@@ -7,7 +7,9 @@ import camchua.hoyoapi.enums.HoyoGame;
 public class HoyoSearchTest {
 
     public static void main(String[] args) {
-        HoyoSearch search = HoyoAPI.inst().hoyolab().search("diona", HoyoGame.GENSHIN_IMPACT);
+        String keyword = "diona";
+        HoyoGame hoyoGame = HoyoGame.GENSHIN_IMPACT;
+        HoyoSearch search = HoyoAPI.inst().hoyolab().search(keyword, hoyoGame);
         for(HoyoPosts post : search.getPosts()) {
             System.out.println("Post name: " + post.getPost().getSubject());
             System.out.println("Post content: " + post.getPost().getContent());
